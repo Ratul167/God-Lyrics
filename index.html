@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/output.css" rel="stylesheet" />
+  
+  <title>Lyrics code</title>
+</head>
+
+<body class="bg-gray-900">
+  <header class="text-gray-400 bg-gray-900 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+        <span class="ml-3 text-xl font-serif">God-Lyrics</span>
+      </a>
+      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+        <a href="./index.html" class="mr-5 hover:text-white font-serif">Home</a>
+        <a href="credits.html" class="mr-5 hover:text-white font-serif">Credit</a>
+        <a href="https://github.com/Ratul167" target="_blank" rel="noopener noreferrer" class="mr-5 hover:text-white  font-serif">Github</a>
+        
+      </nav>
+    </div>
+  </header>
+
+  <section class="text-gray-400 bg-gray-900 body-font relative">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl font-medium title-font mb-4 text-white text-4xl font-mono">
+          Find Lyrics of your favourite music
+        </h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base"></p>
+      </div>
+      <div class="lg:w-1/2 md:w-2/3 mx-auto">
+        <div class="flex flex-wrap -m-2">
+          <div class="w-1/2 justify-center">
+            <div class="relative">
+              <label for="name" class="leading-7 text-sm text-gray-400 font-mono">Music Name</label>
+              <input type="text" name="lyricsdata" id="lyricsdata"
+                class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+            </div>
+          </div>
+
+          <div class="p-2 w-full">
+            <button
+              class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+              onclick="getlyr()">
+              fetch lyrics
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content text-3xl flex-col sm:text-3xl font-medium title-font bg-gray-900 text-white font-mono">
+    <p class="text-center" id="title"></p>
+    <p class="mt-2 text-center" id="auth"></p>
+    <p class="m-2 mt-3 text-center" id="lyr"></p>
+  </div>
+  <footer class="text-gray-400 bg-gray-900 body-font">
+    <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+      <a class="flex title-font font-medium items-center md:justify-start justify-center text-white">
+        <span class="ml-3 text-xl">God-Lyrics</span>
+      </a>
+      <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">
+        Ratul167 —
+        <a href="" class="text-gray-500 ml-1" target="_blank" rel="noopener noreferrer">@CS Boy</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function getlyr() {
+      
+      const data = document.getElementById("lyricsdata").value;
+      const author = document.getElementById("auth").value;
+      const titl = document.getElementById("title").value;
+
+      let url = `https://some-random-api.ml/lyrics?title=${data}`;
+
+      const resp = fetch(url)
+        .then((res) => res.json())
+        .then((json) => {
+          const name = json.title;
+          const author = json.author;
+          const lyrics = json.lyrics;
+          // let line =newLine = <br />
+          let lyrrrr = lyrics.replace(/(\r\n|\n|\r)/gm, "<br />");
+          document.getElementById("title").innerHTML = name;
+          document.getElementById("auth").innerHTML = author;
+          document.getElementById("lyr").innerHTML = lyrrrr;
+          console.log(json);
+        });
+      // console.log(a)
+
+      console.log(data);
+    }
+  </script>
+</body>
+
+</html>
